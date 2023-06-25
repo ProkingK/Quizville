@@ -1,0 +1,22 @@
+{
+  "name": "quizville",
+  "version": "1.0.0",
+  "description": "A cool quiz web app where you can answer and create your own quiz's as well as interact with other users.",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProkingK/Quizville.git"
+  },
+  "keywords": [
+    "quiz"
+  ],
+  "author": "Ashley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProkingK/Quizville/issues"
+  },
+  "homepage": "https://github.com/ProkingK/Quizville#readme"
+}
