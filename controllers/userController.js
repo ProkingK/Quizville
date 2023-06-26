@@ -2,6 +2,7 @@ import User from '../models/userModel.js';
 
 export const signupUser = (req, res) => {
   const { firstname, lastname, username, email, password, role } = req.body;
+  console.log(req.body);
 
   const user = new User({
     firstname,
