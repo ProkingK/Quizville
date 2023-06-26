@@ -1,14 +1,14 @@
 import express from 'express';
-import userController from '../controllers/userController.js';
+import { signupUser } from '../controllers/userController.js';
 
 const userRouter = express.Router();
 
-app.route('/signup')
+userRouter.route('/signup')
     .get((req, res) => {
         res.render('signup');
         console.log('sent signup.ejs to client');
     })
-    .post('/register', userController.signupUser);
+    .post(signupUser);
 
 userRouter.get('/login', (req, res) => {
     res.render('login');

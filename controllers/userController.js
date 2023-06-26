@@ -1,19 +1,19 @@
 import User from '../models/userModel.js';
 
-// Controller function to register a new user
-exports.registerUser = (req, res) => {
-  const { username, email, password } = req.body;
+export const signupUser = (req, res) => {
+  const { firstname, lastname, username, email, password, role } = req.body;
 
-  // Create a new user object
   const user = new User({
+    firstname,
+    lastname,
     username,
     email,
-    password
+    password,
+    role
   });
 
-  // Save the user to the database
   User.create(user);
 
-  // Redirect to the login page or display a success message
-  res.redirect('/login');
+  res.redirect('/home');
+  console.log('User signed up and redirected to home page');
 };
