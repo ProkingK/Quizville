@@ -1,18 +1,12 @@
-import ejs from 'ejs';
-import path from 'path';
 import express from 'express';
+import routes from './routes/routes.js';
 
 const app = express();
 
+app.use('/', routes);
 app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
-
-
-app.get('/', (req, res) => {
-  res.render('splash');
-  console.log('sent splash.ejs to client');
-});
 
 
 app.listen(3000, () => {
