@@ -12,7 +12,7 @@ userRouter.route('/signup')
 
 userRouter.route('/login')
     .get((req, res) => {
-        res.render('login');
+        res.render('login', { message: '' });
         console.log('sent login.ejs to client');
     })
     .post(loginUser);

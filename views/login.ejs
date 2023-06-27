@@ -2,6 +2,9 @@
 
     <div class="container">
         <h1>Login</h1>
+        <% if (message) { %>
+            <p style="color: red;"><%= message %></p>
+        <% } %>
         <form action="/login" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">Username:</label>
