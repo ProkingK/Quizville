@@ -1,5 +1,5 @@
 import express from 'express';
-import { signupUser } from '../controllers/userController.js';
+import { loginUser, signupUser } from '../controllers/userController.js';
 
 const userRouter = express.Router();
 
@@ -10,10 +10,12 @@ userRouter.route('/signup')
     })
     .post(signupUser);
 
-userRouter.get('/login', (req, res) => {
-    res.render('login');
-    console.log('sent login.ejs to client');
-});
+userRouter.route('/login')
+    .get((req, res) => {
+        res.render('login');
+        console.log('sent login.ejs to client');
+    })
+    .post(loginUser);
 
 userRouter.get('/profile', (req, res) => {
     res.render('profile');

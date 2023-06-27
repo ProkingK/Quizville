@@ -2,7 +2,6 @@ import User from '../models/userModel.js';
 
 export const signupUser = (req, res) => {
   const { firstname, lastname, username, email, password, role } = req.body;
-  console.log(req.body);
 
   const user = new User({
     firstname,
@@ -17,4 +16,15 @@ export const signupUser = (req, res) => {
 
   res.redirect('/home');
   console.log('User signed up and redirected to home page');
+};
+
+export const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username });
+
+  if (user.password === password) {
+    res.redirect('/home');
+    console.log('User signed up and redirected to home page');
+  }
 };
