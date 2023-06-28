@@ -17,9 +17,4 @@ router.get('/quiz', (req, res) => {
     console.log('sent quiz.ejs to client');
 });
 
-router.get('/profile', (req, res) => {
-    res.render('profile');
-    console.log('sent profile.ejs to client');
-});
-
 export default router;
