@@ -1,0 +1,45 @@
+<%- include("partials/header"); -%>
+
+        <main class="signin-page">
+            <section class="left-side">
+                <h1 class="alt-text"> Don't have an account?</h1>
+
+                <button class="signup-button">
+                    <span class="signup-button-text">SIGN UP</span>
+                </button>
+            </section>
+
+            <section class="right-side">
+                <img class="logo" src="../public/images/logos/primary-logo.png" alt="quizville logo" />
+
+                <h1 class="signin-title">SIGN IN</h1>
+                <p class="signin-cta">Jump back in and continue your journey.</p>
+
+                <% if (message) { %>
+                    <p class="error-message"><%= message %></p>
+                <% } %>
+
+                <form class="signin-form" action="/signin" method="post">
+                    <div class="input-box">
+                        <img class="input-icon" src="../public/images/input_icons/username-icon.png"
+                            alt="username input icon">
+                        <input type="text" name="username" placeholder="USERNAME" required>
+                    </div>
+
+                    <div class="input-box">
+                        <img class="input-icon" src="../public/images/input_icons/password-icon.png"
+                            alt="password input icon">
+                        <input type="text" name="password" placeholder="PASSWORD" required>
+                    </div>
+
+                    <button type="submit" class="signin-button">
+                        <b class="signin-button-text">SIGN IN</b>
+                    </button>
+                </form>
+            </section>
+        </main>
+    </body>
+
+    <script src="../public/js/signup-in.js"></script>
+
+</html>

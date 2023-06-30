@@ -1,10 +1,13 @@
-.signup-page {
+/* MAIN CONTENT */
+
+.signup-page, .signin-page {
     display: flex;
     font-family: var(--font-main);
 }
 
 .left-side {
     flex: 1;
+    height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -24,12 +27,12 @@
 
 /* SIGN IN */
 
-.signin-text {
+.signup-page .signin-text {
     font-size: var(--font-size-text);
     margin-bottom: var(--spacing-normal);
 }
 
-.signin-button {
+.signup-page .signin-button {
     z-index: 1;
     border: none;
     width: 15rem;
@@ -40,11 +43,39 @@
     background-color: white;
 }
 
-.signin-button:hover {
+.signup-page .signin-button:hover {
     transform: scale(1.1);
 }
 
-.signin-button-text {
+.signup-page .signin-button-text {
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--color-primary-blue);
+}
+
+/* ################ */
+
+.signin-page .signup-text {
+    font-size: var(--font-size-text);
+    margin-bottom: var(--spacing-normal);
+}
+
+.signin-page .signup-button {
+    z-index: 1;
+    border: none;
+    width: 15rem;
+    height: 5rem;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 50px;
+    background-color: white;
+}
+
+.signin-page .signup-button:hover {
+    transform: scale(1.1);
+}
+
+.signin-page .signup-button-text {
     font-size: 2.5rem;
     text-align: center;
     color: var(--color-primary-blue);
@@ -52,6 +83,7 @@
 
 .right-side {
     flex: 1;
+    height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -64,7 +96,9 @@
     height: 200px;
 }
 
-.signup-title {
+/* SIGNUP FORM */
+
+.signup-title, .signin-title {
     font-family: var(--font-cursive);
     color: var(--color-tertiary-blue);
     font-size: var(--font-size-title);
@@ -75,11 +109,17 @@
     font-size: var(--font-size-text);
 }
 
+.signin-cta {
+    color: var(--color-primary-grey);
+    font-size: var(--font-size-text);
+    margin-bottom: var(--spacing-normal);
+}
+
 .error-message {
     color: red;
 }
 
-.signup-form {
+.signup-form, .signin-form {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -110,7 +150,9 @@
     color: var(--color-primary-blue);
 }
 
-.signup-button {
+/* SIGN UP */
+
+.signup-page .signup-button {
     border: none;
     width: 15rem;
     height: 5rem;
@@ -121,11 +163,34 @@
     background-color: var(--color-primary-blue);
 }
 
-.signup-button:hover {
+.signup-page .signup-button:hover {
     transform: scale(1.1);
 }
 
-.signup-button-text {
+.signup-page .signup-button-text {
+    color: white;
+    text-align: center;
+    font-size: var(--font-size-title);
+}
+
+/* ################ */
+
+.signin-page .signin-button {
+    border: none;
+    width: 15rem;
+    height: 5rem;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    background-color: var(--color-primary-blue);
+}
+
+.signin-page .signin-button:hover {
+    transform: scale(1.1);
+}
+
+.signin-page .signin-button-text {
     color: white;
     text-align: center;
     font-size: var(--font-size-title);
