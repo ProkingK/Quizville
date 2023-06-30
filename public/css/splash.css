@@ -85,7 +85,7 @@
 
 /* SIGNUP */
 
-.signup-button {
+.splash-page .signup-button {
     z-index: 1;
     border: none;
     width: 15rem;
@@ -97,11 +97,11 @@
     background-color: var(--color-primary-blue);
 }
 
-.signup-button:hover {
+.splash-page .signup-button:hover {
     transform: scale(1.1);
 }
 
-.signup-button-text {
+.splash-page .signup-button-text {
     color: white;
     text-align: center;
     font-size: var(--font-size-title);
@@ -109,12 +109,12 @@
 
 /* SIGN IN */
 
-.signin-text {
+.splash-page .signin-text {
     font-size: var(--font-size-text);
     margin-bottom: var(--spacing-normal);
 }
 
-.signin-button {
+.splash-page .signin-button {
     z-index: 1;
     border: none;
     width: 15rem;
@@ -125,11 +125,11 @@
     background-color: white;
 }
 
-.signin-button:hover {
+.splash-page .signin-button:hover {
     transform: scale(1.1);
 }
 
-.signin-button-text {
+.splash-page .signin-button-text {
     font-size: 2.5rem;
     text-align: center;
     color: var(--color-primary-blue);
