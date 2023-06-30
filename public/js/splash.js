@@ -5,7 +5,7 @@ $(document).ready(() => {
 });
 
 $(document).ready(() => {
-    $('.login-button').click(() => {
-        window.location.href = '/login';
+    $('.signin-button').click(() => {
+        window.location.href = '/signin';
     });
 });

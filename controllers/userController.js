@@ -2,7 +2,7 @@ import User from '../models/userModel.js';
 
 export const signupUser = async (req, res) => {
   try {
-    const { firstname, lastname, username, email, password, role } = req.body;
+    const { name, surname, username, email, password, role } = req.body;
 
     let existingUser = await User.findOne({ username });
 
@@ -26,8 +26,8 @@ export const signupUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
-      firstname,
-      lastname,
+      name,
+      surname,
       username,
       email,
       hashedPassword,
@@ -44,23 +44,24 @@ export const signupUser = async (req, res) => {
   }
 };
 
-export const loginUser = async (req, res) => {
+export const signinUser = async (req, res) => {
   try {
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.render('login', { message: 'Username does not exits' });
+      return res.render('signin', { message: 'Username does not exits' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.render('login', { message: 'Incorrect password' });
+      return res.render('signin', { message: 'Incorrect password' });
     }
 
-    res.render('dashboard', { message: 'Login successful' });
+    res.redirect('/home');
+    console.log('User signed up and redirected to home page');
   }
   catch (err) {
     res.status(500).json({ message: 'Internal server error' });
