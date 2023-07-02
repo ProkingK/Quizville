@@ -1,0 +1,197 @@
+/* MAIN CONTENT */
+
+.signup-page, .signin-page {
+    display: flex;
+    font-family: var(--font-main);
+}
+
+.left-side {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-size: cover;
+    justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../images/question-background.jpeg);
+}
+
+.alt-text {
+    color: white;
+    font-weight: bold;
+    font-size: var(--font-size-title);
+    margin-bottom: var(--spacing-large);
+}
+
+/* SIGN IN */
+
+.signup-page .signin-text {
+    font-size: var(--font-size-text);
+    margin-bottom: var(--spacing-normal);
+}
+
+.signup-page .signin-button {
+    z-index: 1;
+    border: none;
+    width: 15rem;
+    height: 5rem;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 50px;
+    background-color: white;
+}
+
+.signup-page .signin-button:hover {
+    transform: scale(1.1);
+}
+
+.signup-page .signin-button-text {
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--color-primary-blue);
+}
+
+/* ################ */
+
+.signin-page .signup-text {
+    font-size: var(--font-size-text);
+    margin-bottom: var(--spacing-normal);
+}
+
+.signin-page .signup-button {
+    z-index: 1;
+    border: none;
+    width: 15rem;
+    height: 5rem;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 50px;
+    background-color: white;
+}
+
+.signin-page .signup-button:hover {
+    transform: scale(1.1);
+}
+
+.signin-page .signup-button-text {
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--color-primary-blue);
+}
+
+.right-side {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-size: cover;
+    background-color: var(--color-tertiary-lightblue);
+}
+
+.logo {
+    width: 400px;
+    height: 200px;
+}
+
+/* SIGNUP FORM */
+
+.signup-title, .signin-title {
+    font-family: var(--font-cursive);
+    color: var(--color-tertiary-blue);
+    font-size: var(--font-size-title);
+}
+
+.signup-cta {
+    color: var(--color-primary-grey);
+    font-size: var(--font-size-text);
+}
+
+.signin-cta {
+    color: var(--color-primary-grey);
+    font-size: var(--font-size-text);
+    margin-bottom: var(--spacing-normal);
+}
+
+.error-message {
+    color: red;
+}
+
+.signup-form, .signin-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.input-box {
+    padding: 0.5rem;
+    border-radius: 50px;
+    background-color: white;
+    margin-bottom: var(--spacing-normal);
+    border: 3px solid var(--color-primary-blue);
+}
+
+.input-box input {
+    border: none;
+    outline: none;
+    background-color: white;
+    color: var(--color-primary-blue);
+    font-size: var(--font-size-small-text);
+}
+
+.input-box input::placeholder {
+    color: var(--color-primary-blue);
+}
+
+/* SIGN UP */
+
+.signup-page .signup-button {
+    border: none;
+    width: 15rem;
+    height: 5rem;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    background-color: var(--color-primary-blue);
+}
+
+.signup-page .signup-button:hover {
+    transform: scale(1.1);
+}
+
+.signup-page .signup-button-text {
+    color: white;
+    text-align: center;
+    font-size: var(--font-size-title);
+}
+
+/* ################ */
+
+.signin-page .signin-button {
+    border: none;
+    width: 15rem;
+    height: 5rem;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    background-color: var(--color-primary-blue);
+}
+
+.signin-page .signin-button:hover {
+    transform: scale(1.1);
+}
+
+.signin-page .signin-button-text {
+    color: white;
+    text-align: center;
+    font-size: var(--font-size-title);
+}
