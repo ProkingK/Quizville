@@ -2,7 +2,7 @@ import User from '../models/userModel.js';
 
 export const signupUser = async (req, res) => {
   try {
-    const { name, surname, username, email, password, role } = req.body;
+    const { name, surname, username, email, password} = req.body;
 
     let existingUser = await User.findOne({ username });
 
@@ -30,8 +30,7 @@ export const signupUser = async (req, res) => {
       surname,
       username,
       email,
-      hashedPassword,
-      role
+      hashedPassword
     });
 
     User.create(user);
@@ -39,7 +38,8 @@ export const signupUser = async (req, res) => {
     res.redirect('/home');
     console.log('User signed up and redirected to home page');
   }
-  catch (err) {
+  catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
@@ -81,6 +81,25 @@ export const checkUsernameAvailability = async (req, res) => {
     }
 
     console.log('username availability check requested');
+  }
+  catch (error) {
+    res.status(500).json({ error: 'An error occurred. Please try again later.' });
+  }
+}
+
+export const checkEmailAvailability = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (user) {
+      res.json({ available: false });
+    }
+    else {
+      res.json({ available: true });
+    }
+
+    console.log('email availability check requested');
   }
   catch (error) {
     res.status(500).json({ error: 'An error occurred. Please try again later.' });
