@@ -1,12 +1,14 @@
 /* MAIN CONTENT */
 
-.signup-page, .signin-page {
+.signup-page,
+.signin-page {
     display: flex;
     font-family: var(--font-main);
 }
 
 .left-side {
     flex: 1;
+    height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -22,6 +24,10 @@
     font-weight: bold;
     font-size: var(--font-size-title);
     margin-bottom: var(--spacing-large);
+}
+
+.error {
+    margin-bottom: 0.1rem;
 }
 
 /* SIGN IN */
@@ -82,7 +88,9 @@
 
 .right-side {
     flex: 1;
+    height: 100vh;
     display: flex;
+    overflow: scroll;
     align-items: center;
     flex-direction: column;
     background-size: cover;
@@ -96,7 +104,8 @@
 
 /* SIGNUP FORM */
 
-.signup-title, .signin-title {
+.signup-title,
+.signin-title {
     font-family: var(--font-cursive);
     color: var(--color-tertiary-blue);
     font-size: var(--font-size-title);
@@ -117,7 +126,8 @@
     color: red;
 }
 
-.signup-form, .signin-form {
+.signup-form,
+.signin-form {
     display: flex;
     align-items: center;
     flex-direction: column;
