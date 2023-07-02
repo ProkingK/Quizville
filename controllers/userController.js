@@ -61,9 +61,28 @@ export const signinUser = async (req, res) => {
     }
 
     res.redirect('/home');
-    console.log('User signed up and redirected to home page');
+    console.log('User signed in and redirected to home page');
   }
-  catch (err) {
+  catch (error) {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const checkUsernameAvailability = async (req, res) => {
+  try {
+    const { username } = req.body;
+    const user = await User.findOne({ username });
+
+    if (user) {
+      res.json({ available: false });
+    }
+    else {
+      res.json({ available: true });
+    }
+
+    console.log('username availability check requested');
+  }
+  catch (error) {
+    res.status(500).json({ error: 'An error occurred. Please try again later.' });
+  }
+}
