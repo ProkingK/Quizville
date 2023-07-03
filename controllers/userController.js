@@ -1,8 +1,9 @@
+import bcrypt from 'bcrypt';
 import User from '../models/userModel.js';
 
 export const signupUser = async (req, res) => {
   try {
-    const { firstname, lastname, username, email, password, role } = req.body;
+    const { name, surname, username, email, password} = req.body;
 
     let existingUser = await User.findOne({ username });
 
@@ -26,12 +27,12 @@ export const signupUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
-      firstname,
-      lastname,
+      name,
+      surname,
       username,
       email,
-      hashedPassword,
-      role
+      password: hashedPassword,
+      role : 'user'
     });
 
     User.create(user);
@@ -39,30 +40,70 @@ export const signupUser = async (req, res) => {
     res.redirect('/home');
     console.log('User signed up and redirected to home page');
   }
-  catch (err) {
+  catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-export const loginUser = async (req, res) => {
+export const signinUser = async (req, res) => {
   try {
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.render('login', { message: 'Username does not exits' });
+      return res.render('signin', { message: 'Username does not exits' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.render('login', { message: 'Incorrect password' });
+      return res.render('signin', { message: 'Incorrect password' });
     }
 
-    res.render('dashboard', { message: 'Login successful' });
+    res.redirect('/home');
+    console.log('User signed in and redirected to home page');
   }
-  catch (err) {
+  catch (error) {
     res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const checkUsernameAvailability = async (req, res) => {
+  try {
+    const { username } = req.body;
+    const user = await User.findOne({ username });
+
+    if (user) {
+      res.json({ available: false });
+    }
+    else {
+      res.json({ available: true });
+    }
+
+    console.log('username availability check requested');
+  }
+  catch (error) {
+    res.status(500).json({ error: 'An error occurred. Please try again later.' });
+  }
+};
+
+export const checkEmailAvailability = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (user) {
+      res.json({ available: false });
+    }
+    else {
+      res.json({ available: true });
+    }
+
+    console.log('email availability check requested');
+  }
+  catch (error) {
+    res.status(500).json({ error: 'An error occurred. Please try again later.' });
   }
 };

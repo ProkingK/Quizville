@@ -8,6 +8,7 @@ body {
     --font-cursive: 'Caprasimo', cursive;
 
     /* font sizes */
+    --font-size-small-text: 1rem;
     --font-size-text: 1.5rem;
     --font-size-title: 2.5rem;
     --font-size-small-title: 2rem;
@@ -19,4 +20,7 @@ body {
     /* Colors */
     --color-primary-blue: #1363df;
     --color-secondary-blue: #47B5FF;
+    --color-tertiary-blue: #06283D;
+    --color-tertiary-lightblue: #DFF6FF;
+    --color-primary-grey: #808080;
 }

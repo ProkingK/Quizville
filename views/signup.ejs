@@ -1,37 +1,71 @@
 <%- include("partials/header"); -%>
 
-    <div class="container">
-        <h1>Signup</h1>
-        <% if (message) { %>
-            <p style="color: red;"><%= message %></p>
-        <% } %>
-        <form action="/signup" method="post">
-            <div class="mb-3">
-                <label for="firstname" class="form-label">Name:</label>
-                <input type="text" name="firstname" id="firstname" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="lastname" class="form-label">Surname:</label>
-                <input type="text" name="lastname" id="lastname" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="username" class="form-label">Username:</label>
-                <input type="text" name="username" id="username" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="role" class="form-label">Role:</label>
-                <input type="text" name="role" id="role" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Signup</button>
-        </form>
-    </div>
+        <main class="signup-page">
+            <section class="left-side">
+                <h1 class="alt-text"> Already have an account?</h1>
 
-<%- include("partials/footer"); -%>
+                <button class="signin-button">
+                    <span class="signin-button-text">SIGN IN</span>
+                </button>
+            </section>
+
+            <section class="right-side">
+                <img class="logo" src="../public/images/logos/primary-logo.png" alt="quizville logo" />
+
+                <h1 class="signup-title">SIGN UP</h1>
+                <p class="signup-cta">Create an account and join the community!</p>
+
+                <% if (message) { %>
+                    <p class="error-message"><%= message %></p>
+                <% } %>
+
+                <form class="signup-form" action="/signup" method="post">
+                    <div class="input-box">
+                        <img class="input-icon" src="../public/images/input_icons/name-icon.png" alt="name input icon">
+                        <input type="text" name="name" placeholder="NAME">
+                    </div>
+
+                    <div class="input-box">
+                        <img class="input-icon" src="../public/images/input_icons/surname-icon.png" alt="surname input icon">
+                        <input type="text" name="surname" placeholder="SURNAME">
+                    </div>
+
+                    <p class="error" id="username-error"></p>
+                    
+                    <div class="input-box">
+                        <img class="input-icon" src="../public/images/input_icons/username-icon.png" alt="username input icon">
+                        <input type="text" name="username" placeholder="USERNAME" id="username" required>
+                    </div>
+
+                    <p class="error" id="email-error"></p>
+
+                    <div class="input-box">
+                        <img class="input-icon" src="../public/images/input_icons/email-icon.png" alt="email input icon">
+                        <input type="email" name="email" placeholder="EMAIL" id="email" required>
+                    </div>
+
+                    <p class="error" id="password-error"></p>
+
+                    <div class="input-box">
+                        <img class="input-icon" src="../public/images/input_icons/password-icon.png" alt="password input icon">
+                        <input type="password" name="password" placeholder="PASSWORD" id="password" required>
+                    </div>
+
+                    <p class="error" id="confirm-password-error"></p>
+
+                    <div class="input-box">
+                        <img class="input-icon" src="../public/images/input_icons/confirm-password-icon.png" alt="confirm-password input icon">
+                        <input type="password" name="confirm-password" placeholder="CONFIRM PASSWORD" id="confirm-password" required>
+                    </div>
+
+                    <button type="submit" class="signup-button" id="submit-button">
+                        <b class="signup-button-text">SIGN UP</b>
+                    </button>
+                </form>
+            </section>
+        </main>
+    </body>
+
+    <script src="../public/js/signup-in.js"></script>
+
+</html>
