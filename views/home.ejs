@@ -1,16 +1,73 @@
 <%- include("partials/header"); -%>
 
-    <%- include("partials/navbar"); -%>
+<%- include("partials/navbar"); -%>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <h1>This is the home of Quizville!</h1>
-                <p>Choose an option below:</p>
-                <div class="btn-group">
-                    <button class="btn btn-primary" id="personalFeedBtn">Personal Activity Feed</button>
-                    <button class="btn btn-primary" id="globalFeedBtn">Global Activity Feed</button>
+    <div class="homep-page">
+        <div class="activity-feed">
+            <div class="activity-type">
+                <span class="local">Local</span>
+                <span class="global">Global</span>
+            </div>
+
+            <div class="post">
+                <img src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
+
+                <div class="input-box">
+                    <input type="text" name="post" id="post">
+                    <img src="../public/images/input_icons/attach-icon.png" alt="attach icon">
+                    <img src="../public/images/input_icons/send-icon.png" alt="send icon">
                 </div>
+            </div>
+
+            <div class="activity">
+                <div class="local-activities">
+                    <div class="activity">
+                        <img src="../public/images/home_icons/profile-photo-2.png" alt="profile-photo">
+
+                        <span class="username"></span>
+                        <span class="time"></span>
+
+                        <div class='activity-content'>
+                            <p class="text"></p>
+                        </div>
+
+                        <div class="like">
+                            <img src="../public/images/home_icons/like-icon.png" alt="like button">
+                            <span class="num-likes"></span>
+                        </div>
+
+                        <div class="comment">
+                            <img src="../public/images/home_icons/comment-icon.png" alt="comment button">
+                            <span class="num-comments"></span>
+                        </div>
+
+                        <hr>
+
+                        <div class="post">
+                            <img src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
+                            
+                            <div class="input-box">
+                                <input type="text" name="post" id="post">
+                                <img src="../public/images/input_icons/attach-icon.png" alt="attach icon">
+                                <img src="../public/images/input_icons/send-icon.png" alt="send icon">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="global-activities">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="trending">
+            <div class="trend">
+                <p></p>
+                <p></p>
+                <p></p>
             </div>
         </div>
     </div>
