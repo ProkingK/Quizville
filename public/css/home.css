@@ -221,3 +221,16 @@
     margin: 0;
     color: var(--color-primary-grey);
 }
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-tertiary-blue);
+}
+
+footer img {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+}
