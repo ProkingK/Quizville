@@ -87,7 +87,7 @@ export const checkUsernameAvailability = async (req, res) => {
   catch (error) {
     res.status(500).json({ error: 'An error occurred. Please try again later.' });
   }
-}
+};
 
 export const checkEmailAvailability = async (req, res) => {
   try {
@@ -106,4 +106,4 @@ export const checkEmailAvailability = async (req, res) => {
   catch (error) {
     res.status(500).json({ error: 'An error occurred. Please try again later.' });
   }
-}
+};

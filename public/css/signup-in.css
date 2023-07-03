@@ -30,6 +30,10 @@
     margin-bottom: 0.1rem;
 }
 
+.error-message {
+    color: red;
+}
+
 /* SIGN IN */
 
 .signup-page .signin-text {
