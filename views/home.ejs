@@ -2,54 +2,60 @@
 
 <%- include("partials/navbar"); -%>
 
-    <div class="homep-page">
+    <div class="home-page">
         <div class="activity-feed">
             <div class="activity-type">
-                <span class="local">Local</span>
+                <span class="local selected">Local</span>
                 <span class="global">Global</span>
             </div>
 
             <div class="post">
-                <img src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
+                <img class="profile-photo" src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
 
-                <div class="input-box">
-                    <input type="text" name="post" id="post">
-                    <img src="../public/images/input_icons/attach-icon.png" alt="attach icon">
-                    <img src="../public/images/input_icons/send-icon.png" alt="send icon">
+                <div class="post-input-box">
+                    <input type="text" name="post" id="post" placeholder="What are you up too today..?">
+                    <img class="input-icon" src="../public/images/input_icons/attach-icon.png" alt="attach icon">
+                    <img class="input-icon" src="../public/images/input_icons/send-icon.png" alt="send icon">
                 </div>
             </div>
 
-            <div class="activity">
+            <div class="activities">
                 <div class="local-activities">
                     <div class="activity">
-                        <img src="../public/images/home_icons/profile-photo-2.png" alt="profile-photo">
+                        <div class="activity-header">
+                            <div class="activity-user">
+                                <img class="profile-photo" src="../public/images/home_icons/profile-photo-2.png" alt="profile-photo">
+                                <span class="username">@prokingk</span>
+                            </div>
 
-                        <span class="username"></span>
-                        <span class="time"></span>
+                            <span class="time">1hr ago</span>
+                        </div>
 
                         <div class='activity-content'>
-                            <p class="text"></p>
+                            <p class="text">Completed - Galaxy Quiz</p>
                         </div>
 
-                        <div class="like">
-                            <img src="../public/images/home_icons/like-icon.png" alt="like button">
-                            <span class="num-likes"></span>
-                        </div>
-
-                        <div class="comment">
-                            <img src="../public/images/home_icons/comment-icon.png" alt="comment button">
-                            <span class="num-comments"></span>
+                        <div class="stats">
+                            <div class="like stat">
+                                <img class="home-icon" src="../public/images/home_icons/like-icon.png" alt="like button">
+                                <span class="num-likes">1K</span>
+                            </div>
+    
+                            <div class="comment stat">
+                                <img class="home-icon" src="../public/images/home_icons/comment-icon.png" alt="comment button">
+                                <span class="num-comments">500</span>
+                            </div>
                         </div>
 
                         <hr>
 
                         <div class="post">
-                            <img src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
+                            <img class="profile-photo" src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
                             
-                            <div class="input-box">
-                                <input type="text" name="post" id="post">
-                                <img src="../public/images/input_icons/attach-icon.png" alt="attach icon">
-                                <img src="../public/images/input_icons/send-icon.png" alt="send icon">
+                            <div class="post-input-box">
+                                <input type="text" name="post" id="post" placeholder="Write your comment here...">
+                                <img class="input-icon" src="../public/images/input_icons/attach-icon.png" alt="attach icon">
+                                <img class="input-icon" src="../public/images/input_icons/send-icon.png" alt="send icon">
                             </div>
                         </div>
 
@@ -64,6 +70,7 @@
         </div>
 
         <div class="trending">
+            <p>Trending</p>
             <div class="trend">
                 <p></p>
                 <p></p>
