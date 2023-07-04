@@ -105,6 +105,10 @@
     background-color: var(--color-tertiary-lightblue);
 }
 
+.global-activities {
+    display: none;
+}
+
 .activity-type {
     display: flex;
     background-color: white;
@@ -114,8 +118,14 @@
 
 .activity-type span {
     width: 100%;
+    cursor: pointer;
+    transition: 0.5s;
     text-align: center;
     font-size: var(--font-size-small-title);
+}
+
+.activity-type span:hover {
+    transform: scale(1.05);
 }
 
 .selected {

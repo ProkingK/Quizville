@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 
 export const signupUser = async (req, res) => {
   try {
-    const { name, surname, username, email, password} = req.body;
+    const { name, surname, username, email, password } = req.body;
 
     let existingUser = await User.findOne({ username });
 
@@ -32,13 +32,13 @@ export const signupUser = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      role : 'user'
+      role: 'user'
     });
 
     User.create(user);
 
-    res.redirect('/home');
-    console.log('User signed up and redirected to home page');
+    res.redirect('/signin');
+    console.log('User signed up and redirected to sihn in page');
   }
   catch (error) {
     console.log(error);
@@ -61,6 +61,16 @@ export const signinUser = async (req, res) => {
     if (!isPasswordValid) {
       return res.render('signin', { message: 'Incorrect password' });
     }
+
+    if (username === 'admin') {
+      req.session.role = 'admin';
+    }
+    else {
+      req.session.role = 'user';
+    }
+
+    req.session.user = username;
+    req.session.isLoggedIn = true;
 
     res.redirect('/home');
     console.log('User signed in and redirected to home page');

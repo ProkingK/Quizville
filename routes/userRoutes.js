@@ -21,9 +21,9 @@ userRouter.post('/check-username-availability', userController.checkUsernameAvai
 
 userRouter.post('/check-email-availability', userController.checkEmailAvailability);
 
-userRouter.get('/profile', (req, res) => {
+/*userRouter.get('/profile', (req, res) => {
     res.render('profile');
     console.log('sent profile.ejs to client');
-});
+});*/
 
 export default userRouter;
