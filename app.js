@@ -3,6 +3,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import session from 'express-session';
+import cookieParser from 'cookie-parser';
 
 import routes from './routes/routes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -14,6 +15,7 @@ const __dirname = dirname(__filename);
 
 dotenv.config();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

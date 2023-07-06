@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
 
 export const signupUser = async (req, res) => {
@@ -72,6 +73,10 @@ export const signinUser = async (req, res) => {
     req.session.user = username;
     req.session.isLoggedIn = true;
 
+    const token = jwt.sign({ username }, process.env.JWT_KEY, { expiresIn: '1d' });
+
+    res.cookie('token', token, { httpOnly: true });
+
     res.redirect('/home');
     console.log('User signed in and redirected to home page');
   }
@@ -115,5 +120,42 @@ export const checkEmailAvailability = async (req, res) => {
   }
   catch (error) {
     res.status(500).json({ error: 'An error occurred. Please try again later.' });
+  }
+};
+
+export const getUserData = async (req, res) => {
+  // Access the token from the cookie
+  const token = req.cookies.token;
+
+  // Verify and decode the token
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    const { username } = decoded;
+
+    try {
+      const user = await User.findOne({ username });
+
+      if (user) {
+        const userInfo = {
+          username: user.username,
+          profilePhoto: user.profilePhoto
+        }
+
+        res.json(userInfo);
+      }
+      else {
+        res.status(404).json({ error: 'An error occurred. User not found.' });
+      }
+
+      console.log('user data requested');
+    }
+    catch (error) {
+      res.status(500).json({ error: 'An error occurred. Please try again later.' });
+    }
+
+    res.json({ username });
+  }
+  catch (error) {
+    res.status(401).json({ message: 'Invalid token' });
   }
 };
