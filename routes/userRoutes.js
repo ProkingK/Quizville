@@ -17,13 +17,14 @@ userRouter.route('/signin')
     })
     .post(userController.signinUser);
 
+userRouter.get('/userData', userController.getUserData);
+userRouter.post('/check-email-availability', userController.checkEmailAvailability);
 userRouter.post('/check-username-availability', userController.checkUsernameAvailability);
 
-userRouter.post('/check-email-availability', userController.checkEmailAvailability);
 
-userRouter.get('/profile', (req, res) => {
+/*userRouter.get('/profile', (req, res) => {
     res.render('profile');
     console.log('sent profile.ejs to client');
-});
+});*/
 
 export default userRouter;

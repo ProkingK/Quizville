@@ -1,16 +1,79 @@
 <%- include("partials/header"); -%>
 
-    <%- include("partials/navbar"); -%>
+<%- include("partials/navbar"); -%>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <h1>This is the home of Quizville!</h1>
-                <p>Choose an option below:</p>
-                <div class="btn-group">
-                    <button class="btn btn-primary" id="personalFeedBtn">Personal Activity Feed</button>
-                    <button class="btn btn-primary" id="globalFeedBtn">Global Activity Feed</button>
+    <div class="home-page">
+        <div class="activity-feed">
+            <div class="activity-type">
+                <span class="local selected">Local</span>
+                <span class="global">Global</span>
+            </div>
+
+            <div class="post">
+                <img class="profile-photo" src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
+
+                <div class="post-input-box">
+                    <input type="text" name="post" id="post" placeholder="What are you up too today..?">
+                    <img class="input-icon" src="../public/images/input_icons/attach-icon.png" alt="attach icon">
+                    <img class="input-icon" src="../public/images/input_icons/send-icon.png" alt="send icon">
                 </div>
+            </div>
+
+            <div class="activities">
+                <div class="local-activities">
+                    <div class="activity">
+                        <div class="activity-header">
+                            <div class="activity-user">
+                                <img class="profile-photo" src="../public/images/home_icons/profile-photo-2.png" alt="profile-photo">
+                                <span class="username">@prokingk</span>
+                            </div>
+
+                            <span class="time">1hr ago</span>
+                        </div>
+
+                        <div class='activity-content'>
+                            <p class="text">Completed - Galaxy Quiz</p>
+                        </div>
+
+                        <div class="stats">
+                            <div class="like stat">
+                                <img class="home-icon" src="../public/images/home_icons/like-icon.png" alt="like button">
+                                <span class="num-likes">1K</span>
+                            </div>
+    
+                            <div class="comment stat">
+                                <img class="home-icon" src="../public/images/home_icons/comment-icon.png" alt="comment button">
+                                <span class="num-comments">500</span>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="post">
+                            <img class="profile-photo" src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
+                            
+                            <div class="post-input-box">
+                                <input type="text" name="post" id="post" placeholder="Write your comment here...">
+                                <img class="input-icon" src="../public/images/input_icons/attach-icon.png" alt="attach icon">
+                                <img class="input-icon" src="../public/images/input_icons/send-icon.png" alt="send icon">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="global-activities">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="trending">
+            <p class="trending-title">Trending</p>
+            <div class="trend">
+                <p class="trend-scope">Local</p>
+                <a class="trend-title" href="#">Galaxy Quiz</a>
+                <p class="trend-stat">10K Likes</p>
             </div>
         </div>
     </div>
