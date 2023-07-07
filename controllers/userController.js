@@ -81,6 +81,7 @@ export const signinUser = async (req, res) => {
     console.log('User signed in and redirected to home page');
   }
   catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
@@ -124,12 +125,10 @@ export const checkEmailAvailability = async (req, res) => {
 };
 
 export const getUserData = async (req, res) => {
-  // Access the token from the cookie
   const token = req.cookies.token;
 
-  // Verify and decode the token
   try {
-    const decoded = jwt.verify(token, secretKey);
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
     const { username } = decoded;
 
     try {
@@ -152,10 +151,9 @@ export const getUserData = async (req, res) => {
     catch (error) {
       res.status(500).json({ error: 'An error occurred. Please try again later.' });
     }
-
-    res.json({ username });
   }
   catch (error) {
+    console.log(error);
     res.status(401).json({ message: 'Invalid token' });
   }
 };

@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ['admin', 'user', 'guest']
+    },
+    profilePhoto: {
+        type: String,
+        required: true,
     }
 });
 
