@@ -33,7 +33,7 @@ function getUserData() {
         console.log(data);
         const { username, profilePhoto: profilePhotoURL } = data;
 
-        profilePhoto.attr('src', profilePhotoURL);
+        //profilePhoto.attr('src', profilePhotoURL);
     })
     .catch(error => {
         console.error('Error:', error);
