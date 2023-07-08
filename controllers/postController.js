@@ -10,7 +10,7 @@ export const add = (req, res) => {
             media
         });
       
-        Post.create(user);
+        Post.create(newPost);
 
         res.status(201).json({ success: true, post: newPost });
     } catch (error) {
