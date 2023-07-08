@@ -2,10 +2,11 @@ import Post from '../models/postModel.js';
 
 export const add = (req, res) => {
     try {
-        const { username, content, media} = req.body;
+        const { username, profilePhoto, content, media} = req.body;
 
         const newPost = new Post({
             username,
+            profilePhoto,
             content,
             media
         });

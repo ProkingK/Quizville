@@ -34,10 +34,11 @@ $(document).ready(async () => {
     postButton.click(() => {
         const post = {
             username: user.username,
+            profilePhoto: user.profilePhoto,
             content: postInput.val()
         }
 
-        addPost(post);
+        addPost(post, user);
         console.log(post);
         postInput.val('');
     });
@@ -64,7 +65,7 @@ async function getUserData() {
     }
 }
 
-async function addPost(post) {
+async function addPost(post, user) {
     try {
         const response = await fetch('/post/add', {
             method: 'POST',
@@ -79,126 +80,106 @@ async function addPost(post) {
         }
 
         const data = await response.json();
-        createPost(data.post);
+        const newPost = createPost(data.post, user);
+        
+        globalActivities.prepend(newPost);
+        localActivities.prepend(newPost);
     }
     catch (error) {
         console.error('Error:', error.message);
     }
 }
 
-function createPost(post) {
-    console.log('Post added successfully:', post);
-}
+function createPost(post, user) {
+    const activity = $('<div>').addClass('activity');
 
-/*function createPost() {
-    // Create the outermost container div
-    var activityDiv = $('<div>').addClass('activity');
-
-    // Create the activity header div
-    var activityHeaderDiv = $('<div>').addClass('activity-header');
-
-    // Create the activity user div
-    var activityUserDiv = $('<div>').addClass('activity-user');
-
-    // Create the profile photo img element
-    var profilePhotoImg = $('<img>').addClass('profile-photo')
-        .attr('src', '../public/images/home_icons/profile-photo-2.png')
+    const activityHeader = $('<div>').addClass('activity-header');
+    const activityUser = $('<div>').addClass('activity-user');
+    const profilePhoto = $('<img>').addClass('profile-photo')
+        .attr('src', post.profilePhoto)
         .attr('alt', 'profile-photo');
+    const username = $('<span>').addClass('username').text(post.username);
+    activityUser.append(profilePhoto, username);
+    const time = $('<span>').addClass('time').text(getTimeDifference(post.timePosted, new Date()));
+    activityHeader.append(activityUser, time);
 
-    // Create the username span element
-    var usernameSpan = $('<span>').addClass('username').text('perky');
+    const activityContent = $('<div>').addClass('activity-content');
+    const content = $('<p>').addClass('text').text(post.content);
+    activityContent.append(content);
 
-    // Append the profile photo and username to the activity user div
-    activityUserDiv.append(profilePhotoImg, usernameSpan);
-
-    // Create the time span element
-    var timeSpan = $('<span>').addClass('time').text('1hr ago');
-
-    // Append the activity user div and time span to the activity header div
-    activityHeaderDiv.append(activityUserDiv, timeSpan);
-
-    // Create the activity content div
-    var activityContentDiv = $('<div>').addClass('activity-content');
-
-    // Create the text paragraph element
-    var textParagraph = $('<p>').addClass('text').text('Completed - Galaxy Quiz');
-
-    // Append the text paragraph to the activity content div
-    activityContentDiv.append(textParagraph);
-
-    // Create the stats div
-    var statsDiv = $('<div>').addClass('stats');
-
-    // Create the like stat div
-    var likeStatDiv = $('<div>').addClass('like stat');
-
-    // Create the like button img element
-    var likeButtonImg = $('<img>').addClass('home-icon')
+    const stats = $('<div>').addClass('stats');
+    const likeStat = $('<div>').addClass('like stat');
+    const likeButton = $('<img>').addClass('home-icon')
         .attr('src', '../public/images/home_icons/like-icon.png')
         .attr('alt', 'like button');
-
-    // Create the number of likes span element
-    var numLikesSpan = $('<span>').addClass('num-likes').text('1K');
-
-    // Append the like button and number of likes to the like stat div
-    likeStatDiv.append(likeButtonImg, numLikesSpan);
-
-    // Create the comment stat div
-    var commentStatDiv = $('<div>').addClass('comment stat');
-
-    // Create the comment button img element
-    var commentButtonImg = $('<img>').addClass('home-icon')
+    const numLikes = $('<span>').addClass('num-likes').text('  ' + formatNumber(post.likes));
+    likeStat.append(likeButton, numLikes);
+    const commentStat = $('<div>').addClass('comment stat');
+    const commentButton = $('<img>').addClass('home-icon')
         .attr('src', '../public/images/home_icons/comment-icon.png')
         .attr('alt', 'comment button');
+    const numComments = $('<span>').addClass('num-comments').text('  ' + formatNumber(post.commentsCount));
+    commentStat.append(commentButton, numComments);
+    stats.append(likeStat, commentStat);
 
-    // Create the number of comments span element
-    var numCommentsSpan = $('<span>').addClass('num-comments').text('500');
+    const line = $('<hr>');
 
-    // Append the comment button and number of comments to the comment stat div
-    commentStatDiv.append(commentButtonImg, numCommentsSpan);
-
-    // Append the like stat div and comment stat div to the stats div
-    statsDiv.append(likeStatDiv, commentStatDiv);
-
-    // Create the hr element
-    var hrElement = $('<hr>');
-
-    // Create the post div
-    var postDiv = $('<div>').addClass('post');
-
-    // Create the profile photo img element for the post
-    var postProfilePhotoImg = $('<img>').addClass('profile-photo')
-        .attr('src', '../public/images/home_icons/profile-photo-1.png')
+    const postDiv = $('<div>').addClass('post');
+    const postProfilePhoto = $('<img>').addClass('profile-photo')
+        .attr('src', user.profilePhoto)
         .attr('alt', 'profile-photo');
-
-    // Create the post input box div
-    var postInputBoxDiv = $('<div>').addClass('post-input-box');
-
-    // Create the input text element
-    var inputTextElement = $('<input>').attr('type', 'text')
+    const postInputBox = $('<div>').addClass('post-input-box');
+    const inputTextElement = $('<input>').attr('type', 'text')
         .attr('name', 'post')
         .attr('id', 'post')
         .attr('placeholder', 'Write your comment here...');
-
-    // Create the attach icon img element
-    var attachIconImg = $('<img>').addClass('input-icon')
+    const attachIcon = $('<img>').addClass('input-icon')
         .attr('src', '../public/images/input_icons/attach-icon.png')
         .attr('alt', 'attach icon');
-
-    // Create the send icon img element
-    var sendIconImg = $('<img>').addClass('input-icon')
+    const sendIcon = $('<img>').addClass('input-icon')
         .attr('src', '../public/images/input_icons/send-icon.png')
         .attr('alt', 'send icon');
+    postInputBox.append(inputTextElement, attachIcon, sendIcon);
+    postDiv.append(postProfilePhoto, postInputBox);
 
-    // Append the input text element, attach icon, and send icon to the post input box div
-    postInputBoxDiv.append(inputTextElement, attachIconImg, sendIconImg);
+    activity.append(activityHeader, activityContent, stats, line, postDiv);
 
-    // Append the profile photo and post input box to the post div
-    postDiv.append(postProfilePhotoImg, postInputBoxDiv);
+    return activity;
+}
 
-    // Append all the elements to the activity div in the correct order
-    activityDiv.append(activityHeaderDiv, activityContentDiv, statsDiv, hrElement, postDiv);
+function getTimeDifference(startDate, endDate) {
+    const start = new Date(startDate).getTime();
+    const end = new Date(endDate).getTime();
 
-    // Return the created HTML structure
-    return activityDiv;
-}*/
+    const totalSeconds = Math.floor(Math.abs(end - start) / 1000);
+
+    const years = Math.floor(totalSeconds / (365 * 24 * 60 * 60));
+    const months = Math.floor(totalSeconds / (30 * 24 * 60 * 60));
+    const days = Math.floor(totalSeconds / (24 * 60 * 60));
+    const hours = Math.floor(totalSeconds / (60 * 60));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds;
+
+    if (years > 0) {
+        return `${years}yr ago`;
+    } else if (months > 0) {
+        return `${months}mo ago`;
+    } else if (days > 0) {
+        return `${days}d ago`;
+    } else if (hours > 0) {
+        return `${hours}hr ago`;
+    } else if (minutes > 0) {
+        return `${minutes}min ago`;
+    } else {
+        return `${seconds}sec ago`;
+    }
+}
+
+function formatNumber(number) {
+    const formattedNumber = number.toLocaleString('en-US', {
+        notation: 'compact',
+        compactDisplay: 'short'
+    });
+
+    return formattedNumber;
+}

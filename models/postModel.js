@@ -5,6 +5,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    profilePhoto: {
+        type: String,
+        required: true
+    },
     timePosted: {
         type: Date,
         default: Date.now
