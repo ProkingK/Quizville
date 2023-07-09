@@ -13,6 +13,7 @@ const postInput = $('#post-input');
 
 $(document).ready(async () => {
     const user = await getUserData();
+    displayPosts(user);
     //profilePhoto.attr('src', user.profilePhoto);
 
     homeTab.addClass('selected-tab');
@@ -65,6 +66,36 @@ async function getUserData() {
     }
 }
 
+async function displayPosts(user) {
+    const posts = await getPosts();
+
+    console.log(posts);
+
+    posts.forEach(post => {
+        globalActivities.prepend(createPost(post, user));
+        localActivities.prepend(createPost(post, user));
+    });
+}
+
+async function getPosts() {
+    try {
+        const response = await fetch('post/get-all');
+
+        console.log(response);
+
+        if (!response.ok) {
+            throw new Error('Error fetching posts');
+        }
+
+        const data = await response.json();
+        return data.posts;
+    }
+    catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
 async function addPost(post, user) {
     try {
         const response = await fetch('/post/add', {
@@ -80,10 +111,9 @@ async function addPost(post, user) {
         }
 
         const data = await response.json();
-        const newPost = createPost(data.post, user);
-        
-        globalActivities.prepend(newPost);
-        localActivities.prepend(newPost);
+
+        globalActivities.prepend(createPost(data.post, user));
+        localActivities.prepend(createPost(data.post, user));
     }
     catch (error) {
         console.error('Error:', error.message);

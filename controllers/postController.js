@@ -18,3 +18,14 @@ export const add = (req, res) => {
         res.status(500).json({ success: false, error: error.message });
     }
 };
+
+export const getAll = async (req, res) => {
+    try {
+        const posts = await Post.find({});
+
+        res.status(201).json({ success: true, posts: posts });
+    }
+    catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
