@@ -11,6 +11,9 @@ const postButton = $('#post');
 const attachButton = $('#attach');
 const postInput = $('#post-input');
 
+const commentForm = $('.comment-form');
+const commentInput = $('#comment-post');
+
 $(document).ready(async () => {
     const user = await getUserData();
     displayPosts(user);
@@ -47,6 +50,16 @@ $(document).ready(async () => {
     attachButton.click(() => {
         alert('This feature is currently unavaliable');
     });
+
+    commentForm.submit(function (e) { 
+        const commentContent = commentInput.val();
+        const postID = commentForm.parent().parent().attr('id');
+
+        e.preventDefault();
+        addComment(user, commentContent, postID);
+        commentInput.val('');
+    });
+
 });
 
 async function getUserData() {
@@ -222,6 +235,43 @@ async function updateLike(username, type, postID) {
     catch (error) {
         console.error('Error:', error.message);
     }
+}
+
+async function addComment(user, content, postID) {
+    try {
+        const params = {
+            username: user.username,
+            profilePhoto: user.profilePhoto,
+            content,
+            postID
+        };
+
+        const response = await fetch('/post/comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(params)
+        });
+
+        if (!response.ok) {
+            throw new Error('Error adding post');
+        }
+
+        const data = await response.json();
+
+
+
+        globalActivities.prepend(createPost(data.post, user));
+        localActivities.prepend(createPost(data.post, user));
+    }
+    catch (error) {
+        console.error('Error:', error.message);
+    }
+}
+
+function createComment() {
+
 }
 
 function getTimeDifference(startDate, endDate) {
