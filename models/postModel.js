@@ -25,6 +25,11 @@ const postSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    likedUsers: [
+        {
+            type: String
+        }
+    ],
     commentsCount: {
         type: Number,
         default: 0

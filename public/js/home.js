@@ -121,7 +121,7 @@ async function addPost(post, user) {
 }
 
 function createPost(post, user) {
-    const activity = $('<div>').addClass('activity');
+    const activity = $('<div>').addClass('activity').attr('id', post._id);
 
     const activityHeader = $('<div>').addClass('activity-header');
     const activityUser = $('<div>').addClass('activity-user');
@@ -140,8 +140,12 @@ function createPost(post, user) {
     const stats = $('<div>').addClass('stats');
     const likeStat = $('<div>').addClass('like stat');
     const likeButton = $('<img>').addClass('home-icon')
-        .attr('src', '../public/images/home_icons/like-icon.png')
-        .attr('alt', 'like button');
+    .attr('src', '../public/images/home_icons/like-icon.png')
+    .attr('alt', 'like button')
+    .attr('like', false);
+    if (post.likedUsers.includes(user.username)) {
+    likeButton.attr('src', '../public/images/home_icons/liked-icon.png').attr('like', true);
+    }
     const numLikes = $('<span>').addClass('num-likes').text('  ' + formatNumber(post.likes));
     likeStat.append(likeButton, numLikes);
     const commentStat = $('<div>').addClass('comment stat');
@@ -174,7 +178,50 @@ function createPost(post, user) {
 
     activity.append(activityHeader, activityContent, stats, line, postDiv);
 
+    likeButton.click(() => {
+        likePost(user.username, likeButton, activity);
+    });
+
     return activity;
+}
+
+function likePost(username, likeButton, activity) {
+    if (likeButton.attr('like') === 'false') {
+        console.log('Liked' + activity.attr('id'));
+        likeButton.attr('like', true);
+        updateLike(username, 'like', activity.attr('id'));
+        likeButton.attr('src', '../public/images/home_icons/liked-icon.png');
+    }
+    else {
+        likeButton.attr('like', false);
+        updateLike(username, 'unlike', activity.attr('id'));
+        likeButton.attr('src', '../public/images/home_icons/like-icon.png');
+    }
+}
+
+async function updateLike(username, type, postID) {
+    try {
+        const data = {
+            type,
+            postID,
+            username
+        }
+
+        const response = await fetch('post/like', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error('Error adding post');
+        }
+    }
+    catch (error) {
+        console.error('Error:', error.message);
+    }
 }
 
 function getTimeDifference(startDate, endDate) {
