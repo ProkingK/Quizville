@@ -40,6 +40,10 @@ const postSchema = new mongoose.Schema({
                 type: String,
                 required: true
             },
+            profilePhoto: {
+                type: String,
+                required: true
+            },
             content: {
                 type: String,
                 required: true

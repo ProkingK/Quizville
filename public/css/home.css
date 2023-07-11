@@ -212,6 +212,36 @@
     margin: 1rem;
 }
 
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.comment-profile {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comment-profile .profile-photo {
+    width: 50px;
+    height: 50px;
+}
+
+.comment-profile .username {
+    margin-bottom: 0;
+    font-size: var(--font-size-small-text);
+}
+
+.comment-content {
+    width: 58rem;
+    margin-bottom: 0;
+    font-size: 1.3rem;
+}
+
 .activity .post-input-box input {
     width: 48rem;
 }
@@ -285,4 +315,8 @@ footer img {
     width: 4rem;
     height: 4rem;
     margin-right: 1rem;
+}
+
+footer p {
+    margin-bottom: 0;
 }
