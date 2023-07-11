@@ -50,16 +50,6 @@ $(document).ready(async () => {
     attachButton.click(() => {
         alert('This feature is currently unavaliable');
     });
-
-    commentForm.submit(function (e) { 
-        const commentContent = commentInput.val();
-        const postID = commentForm.parent().parent().attr('id');
-
-        e.preventDefault();
-        addComment(user, commentContent, postID);
-        commentInput.val('');
-    });
-
 });
 
 async function getUserData() {
@@ -153,11 +143,11 @@ function createPost(post, user) {
     const stats = $('<div>').addClass('stats');
     const likeStat = $('<div>').addClass('like stat');
     const likeButton = $('<img>').addClass('home-icon')
-    .attr('src', '../public/images/home_icons/like-icon.png')
-    .attr('alt', 'like button')
-    .attr('like', false);
+        .attr('src', '../public/images/home_icons/like-icon.png')
+        .attr('alt', 'like button')
+        .attr('like', false);
     if (post.likedUsers.includes(user.username)) {
-    likeButton.attr('src', '../public/images/home_icons/liked-icon.png').attr('like', true);
+        likeButton.attr('src', '../public/images/home_icons/liked-icon.png').attr('like', true);
     }
     const numLikes = $('<span>').addClass('num-likes').text('  ' + formatNumber(post.likes));
     likeStat.append(likeButton, numLikes);
@@ -169,16 +159,20 @@ function createPost(post, user) {
     commentStat.append(commentButton, numComments);
     stats.append(likeStat, commentStat);
 
-    const line = $('<hr>');
+    const topLine = $('<hr>');
+    
+    const commentSection = $('<div>').addClass('comment-section');
+    
+    const bottomLine = $('<hr>');
 
     const postDiv = $('<div>').addClass('post');
     const postProfilePhoto = $('<img>').addClass('profile-photo')
         .attr('src', user.profilePhoto)
         .attr('alt', 'profile-photo');
-    const postInputBox = $('<div>').addClass('post-input-box');
-    const inputTextElement = $('<input>').attr('type', 'text')
+    const commentForm = $('<div>').addClass('post-input-box').addClass('comment-form');
+    const commentInput = $('<input>').attr('type', 'text')
         .attr('name', 'post')
-        .attr('id', 'post')
+        .attr('id', 'comment-post')
         .attr('placeholder', 'Write your comment here...');
     const attachIcon = $('<img>').addClass('input-icon')
         .attr('src', '../public/images/input_icons/attach-icon.png')
@@ -186,13 +180,22 @@ function createPost(post, user) {
     const sendIcon = $('<img>').addClass('input-icon')
         .attr('src', '../public/images/input_icons/send-icon.png')
         .attr('alt', 'send icon');
-    postInputBox.append(inputTextElement, attachIcon, sendIcon);
-    postDiv.append(postProfilePhoto, postInputBox);
+    commentForm.append(commentInput, attachIcon, sendIcon);
+    postDiv.append(postProfilePhoto, commentForm);
 
-    activity.append(activityHeader, activityContent, stats, line, postDiv);
+    activity.append(activityHeader, activityContent, stats, topLine, commentSection, bottomLine, postDiv);
 
     likeButton.click(() => {
         likePost(user.username, likeButton, activity);
+    });
+
+    commentForm.submit(function (e) {
+        const commentContent = commentInput.val();
+        const postID = activity.attr('id');
+
+        e.preventDefault();
+        addComment(user, commentContent, postID);
+        commentInput.val('');
     });
 
     return activity;
@@ -220,7 +223,7 @@ async function updateLike(username, type, postID) {
             username
         }
 
-        const response = await fetch('post/like', { 
+        const response = await fetch('post/like', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -259,19 +262,31 @@ async function addComment(user, content, postID) {
         }
 
         const data = await response.json();
+        const comment = createComment(data.comment);
 
-
-
-        globalActivities.prepend(createPost(data.post, user));
-        localActivities.prepend(createPost(data.post, user));
+        $('#' + postID).find('.comment-section').prepend(comment);
     }
     catch (error) {
         console.error('Error:', error.message);
     }
 }
 
-function createComment() {
+function createComment(commentData) {
+    const comment = $('<div>').addClass('comment');
 
+    const commentProfile = $('<div>').addClass('comment-profile');
+    const profilePhoto = $('<img>').addClass('profile-photo');
+    profilePhoto.attr('src', commentData.postProfilePhoto);
+    profilePhoto.attr('alt', 'profile-photo');
+    const username = $('<p>').addClass('username').text(commentData.username);
+    commentProfile.append(profilePhoto, username);
+
+    const commentContent = $('<p>').addClass('comment-content').text(commentData.content);
+    const commentTime = $('<span>').addClass('comment-time').text(getTimeDifference(commentData.timePosted, new Date()));
+
+    comment.append(commentProfile, commentContent, commentTime);
+
+    return comment;
 }
 
 function getTimeDifference(startDate, endDate) {

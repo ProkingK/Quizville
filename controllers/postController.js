@@ -77,7 +77,7 @@ export const like = async (req, res) => {
 
             await post.save();
 
-            res.status(200).json({ success: true});
+            res.status(200).json({ success: true });
         }
         catch (error) {
             console.error('Error liking post', error);
@@ -88,4 +88,43 @@ export const like = async (req, res) => {
         console.log(error);
         res.status(401).json({ message: 'Invalid token' });
     }
-}; 
+};
+
+export const comment = async (req, res) => {
+
+    const token = req.cookies.token;
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_KEY);
+
+        try {
+            const { username, profilePhoto, content, postID } = req.body;
+
+            const post = await Post.findById(postID);
+
+            if (!post) {
+                return res.status(404).json({ message: 'Post not found' });
+            }
+
+            const newComment = {
+                username,
+                profilePhoto,
+                content,
+                timePosted: new Date()
+            };
+
+            post.comments.push(newComment);
+            post.commentsCount += 1;
+
+            await post.save();
+
+            res.status(201).json({ success: true, comment: newComment });
+        } catch (error) {
+            res.status(500).json({ success: false, error: error.message });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        res.status(401).json({ message: 'Invalid token' });
+    }
+};
