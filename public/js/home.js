@@ -7,12 +7,11 @@ const globalActivities = $('.global-activities');
 
 const profilePhoto = $('.profile-photo');
 
-const postButton = $('#post');
-const attachButton = $('#attach');
 const postInput = $('#post-input');
+const postForm = $('.post-input-box');
 
-const commentForm = $('.comment-form');
-const commentInput = $('#comment-post');
+// const commentForm = $('.comment-form');
+// const commentInput = $('#comment-post');
 
 $(document).ready(async () => {
     const user = await getUserData();
@@ -35,7 +34,8 @@ $(document).ready(async () => {
         localActivitiesTab.removeClass('selected');
     });
 
-    postButton.click(() => {
+    postForm.submit((e) => {
+        e.preventDefault();
         const post = {
             username: user.username,
             profilePhoto: user.profilePhoto,
@@ -45,10 +45,6 @@ $(document).ready(async () => {
         addPost(post, user);
         console.log(post);
         postInput.val('');
-    });
-
-    attachButton.click(() => {
-        alert('This feature is currently unavaliable');
     });
 });
 
@@ -131,7 +127,7 @@ function createPost(post, user) {
     const profilePhoto = $('<img>').addClass('profile-photo')
         .attr('src', post.profilePhoto)
         .attr('alt', 'profile-photo');
-    const username = $('<span>').addClass('username').text(post.username);
+    const username = $('<span>').addClass('username').text('  ' + post.username);
     activityUser.append(profilePhoto, username);
     const time = $('<span>').addClass('time').text(getTimeDifference(post.timePosted, new Date()));
     activityHeader.append(activityUser, time);
@@ -149,19 +145,22 @@ function createPost(post, user) {
     if (post.likedUsers.includes(user.username)) {
         likeButton.attr('src', '../public/images/home_icons/liked-icon.png').attr('like', true);
     }
-    const numLikes = $('<span>').addClass('num-likes').text('  ' + formatNumber(post.likes));
+    const numLikes = $('<span>').addClass('num-likes').text(formatNumber(post.likes));
     likeStat.append(likeButton, numLikes);
     const commentStat = $('<div>').addClass('comment stat');
     const commentButton = $('<img>').addClass('home-icon')
         .attr('src', '../public/images/home_icons/comment-icon.png')
         .attr('alt', 'comment button');
-    const numComments = $('<span>').addClass('num-comments').text('  ' + formatNumber(post.commentsCount));
+    const numComments = $('<span>').addClass('num-comments').text(formatNumber(post.commentsCount));
     commentStat.append(commentButton, numComments);
     stats.append(likeStat, commentStat);
 
     const topLine = $('<hr>');
     
-    const commentSection = $('<div>').addClass('comment-section');
+    const commentSection = $('<div>').addClass('comment-section').attr('showing', false).hide();
+    post.comments.forEach(comment => {
+        commentSection.append(createComment(comment));
+    });
     
     const bottomLine = $('<hr>');
 
@@ -169,18 +168,18 @@ function createPost(post, user) {
     const postProfilePhoto = $('<img>').addClass('profile-photo')
         .attr('src', user.profilePhoto)
         .attr('alt', 'profile-photo');
-    const commentForm = $('<div>').addClass('post-input-box').addClass('comment-form');
+    const commentForm = $('<form>').addClass('post-input-box').addClass('comment-form');
     const commentInput = $('<input>').attr('type', 'text')
         .attr('name', 'post')
+        .attr('required', 'required')
         .attr('id', 'comment-post')
         .attr('placeholder', 'Write your comment here...');
-    const attachIcon = $('<img>').addClass('input-icon')
-        .attr('src', '../public/images/input_icons/attach-icon.png')
-        .attr('alt', 'attach icon');
+    const sendButton = $('<button>').attr('type', 'submit');
     const sendIcon = $('<img>').addClass('input-icon')
-        .attr('src', '../public/images/input_icons/send-icon.png')
-        .attr('alt', 'send icon');
-    commentForm.append(commentInput, attachIcon, sendIcon);
+    .attr('src', '../public/images/input_icons/send-icon.png')
+    .attr('alt', 'send icon');
+    sendButton.append(sendIcon);
+    commentForm.append(commentInput, sendButton);
     postDiv.append(postProfilePhoto, commentForm);
 
     activity.append(activityHeader, activityContent, stats, topLine, commentSection, bottomLine, postDiv);
@@ -189,11 +188,23 @@ function createPost(post, user) {
         likePost(user.username, likeButton, activity);
     });
 
-    commentForm.submit(function (e) {
-        const commentContent = commentInput.val();
-        const postID = activity.attr('id');
+    commentButton.click(() => {
+        if (commentSection.attr('showing') === 'false') {
+            commentSection.show();
+            commentSection.attr('showing', true);
+        }
+        else {
+            commentSection.hide();
+            commentSection.attr('showing', false);
+        }
+    });
 
+    commentForm.submit(function (e) {
         e.preventDefault();
+        console.log('submitted');
+        const postID = activity.attr('id');
+        const commentContent = commentInput.val();
+
         addComment(user, commentContent, postID);
         commentInput.val('');
     });
@@ -264,7 +275,7 @@ async function addComment(user, content, postID) {
         const data = await response.json();
         const comment = createComment(data.comment);
 
-        $('#' + postID).find('.comment-section').prepend(comment);
+        $('#' + postID).find('.comment-section').prepend(comment).show();
     }
     catch (error) {
         console.error('Error:', error.message);
@@ -276,7 +287,7 @@ function createComment(commentData) {
 
     const commentProfile = $('<div>').addClass('comment-profile');
     const profilePhoto = $('<img>').addClass('profile-photo');
-    profilePhoto.attr('src', commentData.postProfilePhoto);
+    profilePhoto.attr('src', commentData.profilePhoto);
     profilePhoto.attr('alt', 'profile-photo');
     const username = $('<p>').addClass('username').text(commentData.username);
     commentProfile.append(profilePhoto, username);

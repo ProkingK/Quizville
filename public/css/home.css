@@ -59,9 +59,14 @@
     display: inline-block;
 }
 
-.profile-photo {
+.profile-photo-nav {
     width: 75px;
     height: 75px;
+}
+
+.profile-photo {
+    width: 60px;
+    height: 60px;
 }
 
 .dropdown-content {
@@ -188,8 +193,12 @@
     justify-content: space-between;
 }
 
-.username {
+.username-nav {
     font-size: var(--font-size-text);
+}
+
+.username {
+    font-size: var(--font-size-small-text);
 }
 
 .activity-content {
@@ -210,6 +219,15 @@
 
 .stat {
     margin: 1rem;
+}
+
+.stat span {
+    margin-left: 0.5rem;
+}
+
+.comment-section {
+    overflow: scroll;
+    max-height: 16rem;
 }
 
 .comment {
