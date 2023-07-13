@@ -59,9 +59,14 @@
     display: inline-block;
 }
 
-.profile-photo {
+.profile-photo-nav {
     width: 75px;
     height: 75px;
+}
+
+.profile-photo {
+    width: 60px;
+    height: 60px;
 }
 
 .dropdown-content {
@@ -125,6 +130,7 @@
 }
 
 .activity-type span:hover {
+    z-index: 1;
     transform: scale(1.05);
 }
 
@@ -167,6 +173,7 @@
 .post-input-box .input-icon {
     width: 1.5rem;
     height: 1.5rem;
+    cursor: pointer;
     margin: 0 0.5rem;
 }
 
@@ -186,8 +193,12 @@
     justify-content: space-between;
 }
 
-.username {
+.username-nav {
     font-size: var(--font-size-text);
+}
+
+.username {
+    font-size: var(--font-size-small-text);
 }
 
 .activity-content {
@@ -198,6 +209,7 @@
 .home-icon {
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
 }
 
 .stats {
@@ -207,6 +219,45 @@
 
 .stat {
     margin: 1rem;
+}
+
+.stat span {
+    margin-left: 0.5rem;
+}
+
+.comment-section {
+    overflow: scroll;
+    max-height: 16rem;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.comment-profile {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.comment-profile .profile-photo {
+    width: 50px;
+    height: 50px;
+}
+
+.comment-profile .username {
+    margin-bottom: 0;
+    font-size: var(--font-size-small-text);
+}
+
+.comment-content {
+    width: 58rem;
+    margin-bottom: 0;
+    font-size: 1.3rem;
 }
 
 .activity .post-input-box input {
@@ -282,4 +333,8 @@ footer img {
     width: 4rem;
     height: 4rem;
     margin-right: 1rem;
+}
+
+footer p {
+    margin-bottom: 0;
 }

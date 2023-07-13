@@ -12,20 +12,21 @@
             <div class="post">
                 <img class="profile-photo" src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
 
-                <div class="post-input-box">
-                    <input type="text" name="post" id="post" placeholder="What are you up too today..?">
-                    <img class="input-icon" src="../public/images/input_icons/attach-icon.png" alt="attach icon">
-                    <img class="input-icon" src="../public/images/input_icons/send-icon.png" alt="send icon">
-                </div>
+                <form class="post-input-box">
+                    <input type="text" name="post" id="post-input" placeholder="What are you up too today..?" required>
+                    <button type="submit">
+                        <img class="input-icon" id="post" src="../public/images/input_icons/send-icon.png" alt="send icon">
+                    </button>
+                <form/>
             </div>
 
             <div class="activities">
                 <div class="local-activities">
-                    <div class="activity">
+                    <div class="activity" id="test-activity">
                         <div class="activity-header">
                             <div class="activity-user">
                                 <img class="profile-photo" src="../public/images/home_icons/profile-photo-2.png" alt="profile-photo">
-                                <span class="username">@prokingk</span>
+                                <span class="username">perkyy</span>
                             </div>
 
                             <span class="time">1hr ago</span>
@@ -47,16 +48,30 @@
                             </div>
                         </div>
 
+                        <hr class="comment-line">
+
+                        <div class="comment-section">
+                            <div class="comment">
+                                <div class="comment-profile">
+                                    <img class="profile-photo" src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
+                                    <p class="username">prokingk</p>
+                                </div>
+                                <p class="comment-content">Well Done!</p>
+                                <span class="comment-time">30min ago</span>
+                            </div>
+                        </div>
+
                         <hr>
 
                         <div class="post">
                             <img class="profile-photo" src="../public/images/home_icons/profile-photo-1.png" alt="profile-photo">
                             
-                            <div class="post-input-box">
-                                <input type="text" name="post" id="post" placeholder="Write your comment here...">
-                                <img class="input-icon" src="../public/images/input_icons/attach-icon.png" alt="attach icon">
-                                <img class="input-icon" src="../public/images/input_icons/send-icon.png" alt="send icon">
-                            </div>
+                            <form class="post-input-box comment-form">
+                                <input type="text" name="post" id="comment-post" placeholder="Write your comment here...">
+                                <button type="submit">
+                                    <img class="input-icon" src="../public/images/input_icons/send-icon.png" alt="send icon">
+                                </button>
+                            </form>
                         </div>
 
                     </div>

@@ -6,7 +6,8 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 
 import routes from './routes/routes.js';
-import userRoutes from './routes/userRoutes.js';
+import userRouter from './routes/userRoutes.js';
+import postRouter from './routes/postRoutes.js';
 
 const app = express();
 
@@ -21,12 +22,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
   secret: process.env.SESSION_KEY,
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
 }));
 
 app.use('/', routes);
-app.use('/', userRoutes);
+app.use('/', userRouter);
+app.use('/post', postRouter);
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
