@@ -10,9 +10,6 @@ const profilePhoto = $('.profile-photo');
 const postInput = $('#post-input');
 const postForm = $('.post-input-box');
 
-// const commentForm = $('.comment-form');
-// const commentInput = $('#comment-post');
-
 $(document).ready(async () => {
     const user = await getUserData();
     displayPosts(user);
